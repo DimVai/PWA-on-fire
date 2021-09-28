@@ -15,6 +15,11 @@ workbox.routing.registerRoute(
   );
 
 workbox.routing.registerRoute(
+    new RegExp('.+\\.json$'),
+    new workbox.strategies.NetworkFirst()
+);
+
+workbox.routing.registerRoute(
     new RegExp('.+\\.css$'),
     new workbox.strategies.NetworkFirst()
 );

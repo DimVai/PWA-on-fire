@@ -27,18 +27,19 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(window).on('load',function() {
             $("#colbut").on('click',function(){
                 $("#rectangular").css("background-color", $('#colorValue').val());
                 $('#colorValue').focus();
             });
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js')
+                .then((reg)=>console.debug('service worker registered', reg))
+                .catch((err)=>console.debug('service worker not registered',err));
+            }
         })
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-            .then((reg)=>console.debug('service worker registered', reg))
-            .catch((err)=>console.debug('service worker not registered',err));
-        }
 
     </script>
 </body>
