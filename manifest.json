@@ -1,0 +1,16 @@
+{
+    "name": "PWA by Dimitris",
+    "short_name": "PWA by Dimitris",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "purple",
+    "theme_color": "purple",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/pwalogo.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ]
+  }
