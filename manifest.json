@@ -2,7 +2,7 @@
     "name": "PWA",
     "short_name": "PWA",
     "start_url": "index.html", 
-    "scope": "./",
+    "scope": ".",
     "display": "standalone",
     "background_color": "purple",
     "theme_color": "purple",
