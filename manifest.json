@@ -1,14 +1,15 @@
 {
-    "name": "PWA by Dimitris",
-    "short_name": "PWA by Dimitris",
-    "start_url": "/index.html",
+    "name": "PWA",
+    "short_name": "PWA",
+    "start_url": "index.html", 
+    "scope": "./",
     "display": "standalone",
     "background_color": "purple",
     "theme_color": "purple",
     "orientation": "portrait",
     "icons": [
       {
-        "src": "pwalogo.png",
+        "src": "logo.png",
         "type": "image/png",
         "sizes": "192x192"
       }

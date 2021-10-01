@@ -1,0 +1,4 @@
+.center-contents{
+	display: grid;
+	place-items: center;
+}
