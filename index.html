@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>WPA by Dimitris</title>
+    <title>PWA by Dimitris</title>
 
     <link rel="manifest" href="manifest.json">      
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
@@ -18,9 +18,9 @@
 
 </head>
 <body>
-    <div class="container center-contents">
+    <div class="container sm center-contents">
         <h1 class="m-3">PWA by Dimitris</h1>
-        <input class="m-1 form-control" type="text" id="colorValue">
+        <input class="m-1 form-control" type="text" id="colorValue" placeholder="color">
         <button class="m-2 btn btn-primary" id="colbut">Change color</button>
         <br>
         <br>
@@ -41,6 +41,9 @@
                 $("#rectangular").css("background-color", $('#colorValue').val());
                 $('#colorValue').focus();
             });
+            $('#colorValue').on('keypress',function(e){
+                if (e.keyCode==13) {$("#colbut").click();} //if you press enter
+            });            
         })
 
     </script>
