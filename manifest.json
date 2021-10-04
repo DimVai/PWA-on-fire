@@ -1,17 +1,15 @@
 {
     "name": "PWA",
     "short_name": "PWA",
-    "start_url": "index.html",
-    "scope": ".",
-    "display": "standalone",
-    "background_color": "purple",
-    "theme_color": "purple",
-    "orientation": "portrait",
-    "icons": [
-      {
+    "start_url": "index.html",    //starting page of app
+    "scope": ".",                 //this location (directory)
+    "display": "standalone",    
+    "background_color": "blue",
+    "theme_color": "blue",
+    "orientation": "portrait",    //or "portrait-primary"
+    "icons": [{
         "src": "logo.png",
         "type": "image/png",
         "sizes": "192x192"
-      }
-    ]
+    }]
   }

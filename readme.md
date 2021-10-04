@@ -4,9 +4,9 @@ https://dimvai.github.io/PWA/
 
 What to do specifically:
 
-1. Make your app's icon, `logo.png` (and your favicon.ico)
-2. Add the `manifest.json` (change it if you like)
-3. Add the `service-worker.js` (change it if you like)
+1. Make your app's icon, `logo.png` (along with your `favicon.ico`)
+2. Add the `manifest.json` (change it later if you like)
+3. Add the `service-worker.js` (change it later if you like)
 4. In your `index.html` add:
 
 
@@ -16,14 +16,13 @@ In the `head` section:
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 ```
 
-Anywhere:
+Anywhere else in HTML, preferably towards the end of the file (in the scripts section - before </body>):
 ```HTML
 <script>
     window.addEventListener('load', function(event) {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')
-                .then((reg)=>console.debug('service worker registered', reg))
-                .catch((err)=>console.debug('service worker not registered',err));
+            .catch((err)=>console.debug('service worker not registered',err));
         }
     });
 </script>
