@@ -41,7 +41,7 @@ workbox.routing.registerRoute(
     new workbox.strategies.StaleWhileRevalidate()       // Alternatively: NetworkFirst()
 );
 
-// 3. prefer internet on other resources that are updated frequently 
+// 3. prefer internet on other resources that are frequently updated  
 workbox.routing.registerRoute(
     regExpContainsNot([...unchangedResources,...externalResources]),   
     new workbox.strategies.NetworkFirst()     // Alternatively: StaleWhileRevalidate()
