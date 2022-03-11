@@ -23,12 +23,16 @@
 <body>
     
     <div class="container sm center-contents">
-        <h1 class="m-3">PWA by Dimitris</h1>
+        <h1 class="m-3">PWA on Fire!</h1>
         <input class="m-1 form-control" type="text" id="colorValue" placeholder="color">
         <button class="m-2 btn btn-primary" id="colbut">Change color</button>
         <br>
-        <br>
         <div id="rectangular" style="width:100%; height: 200px; background-color: black;"></div>
+        <br>
+        <hr class="border-2 border-top">
+        <br>
+        <button class="m-2 btn btn-warning" onclick="PWA.subscribeToPush()">Subscribe to push</button>
+        <button class="m-2 btn btn-success" onclick="PWA.testNotificationLocally()">Notify!</button>
     </div>
 
 

@@ -1,5 +1,9 @@
 'use strict';
 
+
+
+/***********************************     INITIALIZING     ***********************************/
+
 // import Workbox
 self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js');
 
@@ -15,9 +19,23 @@ self.addEventListener('install', event => { self.skipWaiting() });
 // when the new updated service worker (this file) gets activated
 self.addEventListener('activate', event => { 
     // event.waitUntil( /* caching and other things to do before it is being installed */ );
-    console.debug('service worker activated', event);
+    console.debug('Service worker activated: ', event);
 });
 
+
+
+/***********************************     RECEIVE PUSH     ***********************************/
+// ΠΡΟΣΟΧΗ: Αν γίνει error, δεν θα ειδοποιηθείς και οι επόμενες εντολές δεν θα εκτελεστούν και θα νομίζεις οτι φταίνε εκείνες αλλά φταίει κάποια προηγούμενη! 
+self.addEventListener('push', (pushEvent) => {
+    const pushData = pushEvent.data.json();
+    // console.log(JSON.stringify(pushData));
+    self.registration.showNotification(pushData.title, { body: pushData?.body??"PWA Notification", icon: pushData?.icon??"favicon.ico" });
+});
+
+
+
+
+/***********************************     CACHING SETTINGS     ***********************************/
 
 // just helper functions
 let regExpContains = (array) => new RegExp('.*('+array.join('|')+').*');
