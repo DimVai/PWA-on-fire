@@ -17,15 +17,16 @@ var PWA = {
           userVisibleOnly: true,
           applicationServerKey: serverKey,
         });
-        this.PushSubscription = pushSubscription.toJSON();        // send this object to server or database
-        if (willSendPushToServer) {
-            await this.sendPushSubscription();
-            console.log("Subscribed to push notifications");
+        let subsciptionObject = pushSubscription.toJSON();
+        this.PushSubscription = subsciptionObject;        // send this object to server or database
+        if (willSendPushToServer) {        
+            await this.sendPushSubscription(subsciptionObject);
+            console.log("Subscribed to push notifications",subsciptionObject);
         };
-        return this.PushSubscription;
+        return subsciptionObject;
     },
     /** Sends the push subscription to server or database */
-    sendPushSubscription: function(){window.storePushSubscription(this.PushSubscription)},
+    sendPushSubscription: function(subsciptionObject=this.PushSubscription){window.storePushSubscription(subsciptionObject)},
     /** Used in showing a test notification */
     defaultPushSettings: {
         body: "This is the text of the notification",

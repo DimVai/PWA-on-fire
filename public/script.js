@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
 import { getRemoteConfig, getValue, fetchAndActivate } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-remote-config.js";
 import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-messaging.js"; 
-import { getFirestore, doc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"; 
+import { getFirestore, doc, setDoc, collection, addDoc , serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"; 
 
 
 // Your web app's Firebase configuration
@@ -60,7 +60,9 @@ fetchAndActivate(remoteConfig)
 
 
 /**********************************    CLOUD MESSAGING    **********************************/
-window.storePushSubscription = async (subscriptionObject) => {
+window.storePushSubscription = async (subscriptionObject=PWA.PushSubscription) => {
+    let subsciptionObjectToSend = subscriptionObject;
+    subsciptionObjectToSend.timestamp = serverTimestamp();
     // Add a new document with a generated id.
     return await addDoc(collection(db, "pushSubscriptions"), subscriptionObject);
 };
@@ -105,4 +107,17 @@ $(window).on('load',function() {
     $('#colorValue').on('keypress',function(e){
         if (e.keyCode==13) {$("#colbut").click();} //if you press enter
     });            
+})
+
+let subscribeButtonTimesClicked = 0;
+subscribeButton.addEventListener('click',()=>{
+    PWA.subscribeToPush();
+    subscribeButtonTimesClicked++;
+    if (subscribeButtonTimesClicked==3) {
+    subscribeButton.textContent = "force send!"
+    } else if (subscribeButtonTimesClicked==4) {
+        storePushSubscription()
+        console.log("subscription sent again");
+        subscribeButton.style.display = "none";
+    }
 })
