@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
 import { getRemoteConfig, getValue, fetchAndActivate } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-remote-config.js";
 import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-messaging.js"; 
-// import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"; 
+import { getFirestore, doc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js"; 
 
 
 // Your web app's Firebase configuration
@@ -21,7 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const FirebaseApp = initializeApp(firebaseConfig);
 // the following must be AFTER "FirebaseApp" initialization:
-// window.db = getFirestore(FirebaseApp);
+window.db = getFirestore(FirebaseApp);
 const analytics = getAnalytics(FirebaseApp);
 const remoteConfig = getRemoteConfig(FirebaseApp);     
 const messaging = getMessaging(FirebaseApp);
@@ -56,6 +56,14 @@ fetchAndActivate(remoteConfig)
   });
 
 
+
+
+
+/**********************************    CLOUD MESSAGING    **********************************/
+window.storePushSubscription = async (subscriptionObject) => {
+    // Add a new document with a generated id.
+    return await addDoc(collection(db, "pushSubscriptions"), subscriptionObject);
+};
 
 
 
