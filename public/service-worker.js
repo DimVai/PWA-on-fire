@@ -28,7 +28,7 @@ self.addEventListener('activate', event => {
 // ΠΡΟΣΟΧΗ: Αν γίνει error, δεν θα ειδοποιηθείς και οι επόμενες εντολές δεν θα εκτελεστούν και θα νομίζεις οτι φταίνε εκείνες αλλά φταίει κάποια προηγούμενη! 
 self.addEventListener('push', (pushEvent) => {
     const pushData = pushEvent.data.json();
-    // console.log(JSON.stringify(pushData));
+    // console.log(JSON.stringify(pushData));  // console does not work on service worker
     self.registration.showNotification(pushData.title, { body: pushData?.body??"PWA Notification", icon: pushData?.icon??"favicon.ico" });
 });
 

@@ -12,13 +12,16 @@ var PWA = {
     ApplicationServerKey: 'BND94p-OAukaXBvJ2WtZUe5PALL1RF9IkU1z4XlGhtsJ-XnKagF4eyPbggJc8p8MVTVp_KMbq6BrENhAGoqzCkc',
     /** Creates or just returns the PushSubscription object. Asks user's permission */
     subscribeToPush: async function(serverKey=this.ApplicationServerKey){
+        const willSendPushToServer = !(Notification.permission == "granted");
         let pushSubscription = await this.ServiceWorkerRegistration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: serverKey,
         });
         this.PushSubscription = pushSubscription.toJSON();        // send this object to server or database
-        await this.sendPushSubscription();
-        console.log("Subscribed to push notifications");
+        if (willSendPushToServer) {
+            await this.sendPushSubscription();
+            console.log("Subscribed to push notifications");
+        };
         return this.PushSubscription;
     },
     /** Sends the push subscription to server or database */
