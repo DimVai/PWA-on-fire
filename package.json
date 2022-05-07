@@ -5,7 +5,7 @@
   "main": "webpush.js",
   "type": "module",
   "scripts": {
-    "push": "node push.js"
+    "push": "node webpush/push.js"
   },
   "keywords": [],
   "author": "",

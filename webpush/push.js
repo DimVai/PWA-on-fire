@@ -1,6 +1,12 @@
+'use strict';
+
+////////// SCRIPT THAT RUNS MANUALLY BY ME WHEN I WANT TO SEND A PUSH NOTIFICATION
+////////// NOT PART OF PAGE LOGIC. 
+
+
 import WebPush from 'web-push';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, query, getDocs } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -24,7 +30,7 @@ const vapidKeys = {
 WebPush.setVapidDetails( 'mailto:dvainanidis@gmail.com' , vapidKeys.publicKey , vapidKeys.privateKey );
 
 /*
-// This is the same output of calling JSON.stringify on a PushSubscription
+// This is the same output of calling JSON.stringify on a PushSubscription. Example: 
 const pushSubscription = {
     endpoint: 'https://updates.push.services.mozilla.com/wpush/v2/gAAAAABiKmMAr5LGjTf45uYIoOlzhqk6kACQFVqthv_3sK2JMlHgwEFP-_PGhwyATpsqcDvwXioHE22TxuKv9DjbkhDL88gwpD_LzawWMIxI3mWdkE5uyMrUaZJJpYjuKDj52pSfcATy61PkxWfxqsuKa6u0Mta2aZfA-gQCk6OJx7sPL4tzACg',
     expirationTime: null,
@@ -40,18 +46,30 @@ sendNotification(pushSubscription, JSON.stringify({title: "Push from server", bo
 const pushMessage = JSON.stringify({title: "Push from server", body: "text message that came from server"});
 
 const pushSubscriptions = collection(db, "pushSubscriptions");
-const querySnapshot = await getDocs(query(pushSubscriptions));
+const querySnapshot = await getDocs(query(pushSubscriptions));       // jshint ignore:line
 
-// (async function () {      // self executing async function
-    querySnapshot.forEach((pushObject) => {
-        const pushSubscription = pushObject.data();
-        // console.log(pushSubscription)
-        WebPush.sendNotification(pushSubscription, pushMessage);
-    });
+let pushNotificationPromises = [];  // array of promises in order to use Promise.allSettled
+let index=0;   // so the first index++ would be 0
 
-// })()
-//    .then(()=>{process.exit(0)})        // to stop execution of the .js file (else, it is hunging)
-//    .catch(()=>{process.exit(1)});      // 0 is success, 1 is failure
-// process.exit(0);
+console.log("Push proccess started sending " + querySnapshot.docs.length + " push messages");
+querySnapshot.forEach((pushObject) => {
+    const pushSubscription = pushObject.data();
+    pushNotificationPromises[index++] = WebPush.sendNotification(pushSubscription, pushMessage);     // store the pending promises
+    // console.log(index,pushNotificationPromises[index],pushSubscription);
+});
+// console.log(pushNotificationPromises);
+
+
+Promise.allSettled(pushNotificationPromises).then((values)=>{ 
+    let results = values.map(value=>value.status);
+    let successes = results.filter(result=>result==="fulfilled");
+    let failures = results.filter(result=>result==="rejected");
+    console.log("Push proccess completed with " + successes.length + " successes and " + failures.length + " failures");
+    process.exit(0);
+});
+// allSettled = resolved or rejected
+// On the contrary, Promise.all will reject immediately upon any of the input promises rejecting
+// .catch(()=>{process.exit(1)});      // 0 is success, 1 is failure
+
 
 
