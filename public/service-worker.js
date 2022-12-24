@@ -57,6 +57,22 @@ self.addEventListener('activate', event => {
 
 
 const messaging = firebase.messaging();     // Just by executing this command, notifications will be shown. 
+
+// the following method is for extra things, not for showing the notification! 
+/*
+messaging.onBackgroundMessage(function(payload) {
+    console.log('Received background message ', payload);
+    // Customize notification here
+    const notificationTitle = 'Background Message Title';
+    const notificationOptions = {
+      body: 'Background Message body.',
+      icon: "favicon.ico"
+    };
+  
+    self.registration.showNotification(notificationTitle,
+      notificationOptions);
+  });
+*/
 /*
 onBackgroundMessage(messaging, (payload) => {
     console.log('Received background message ', payload);

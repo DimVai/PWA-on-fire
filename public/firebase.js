@@ -78,7 +78,7 @@ window.storePushSubscription = async (subscriptionObject=PWA.PushSubscription) =
 
 // Get registration token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
-// ifserviceWorkerRegistration is ommited, it will search for the file firebase-messaging-sw.js
+// if serviceWorkerRegistration is ommited, it will search for the file firebase-messaging-sw.js
 PWA.registerFirebaseMessaging = (vapidKey,serviceWorkerRegistration) => {
     console.assert(serviceWorkerRegistration, "wrong service worker");
     getToken(messaging, { vapidKey, serviceWorkerRegistration }).then((firebaseMessagingToken) => {
@@ -86,6 +86,8 @@ PWA.registerFirebaseMessaging = (vapidKey,serviceWorkerRegistration) => {
           // Send the token to your server and update the UI if necessary
           console.log(`firebase messaging worked!`);
           console.log({firebaseMessagingToken});
+          // Αυτό το firebaseMessagingToken πρέπει να το αποθηκεύσεις (στο firestore)
+          // γιατί αλλιώς δεν θα τα έχεις (οπότε πχ δεν μπορείς να τα διαγράψεις) 
         } else {
           // Show permission request UI
           console.log('No registration token available. Request permission to generate one.');

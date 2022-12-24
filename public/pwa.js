@@ -31,7 +31,7 @@ var PWA = {
     },
     /** This method should be defined in other file (because requires firebase modules). Initializes Firebase Messaging */
     registerFirebaseMessaging: null,
-    /** Sends the push subscription to server or database. In this template, I use another function. */
+    /** Sends the push subscription to server or database or firebase. In this template, I use an external function. */
     sendPushSubscription: function(subsciptionObject=this.PushSubscription){window.storePushSubscription(subsciptionObject)},
     /** Used in showing a test notification */
     defaultPushSettings: {
