@@ -4,8 +4,8 @@
     "start_url": "index.html",
     "scope": ".", 
     "display": "standalone",    
-    "background_color": "blue",
-    "theme_color": "blue",
+    "background_color": "0000FF",
+    "theme_color": "0000FF",
     "description": "Simplest WPA possible",
     "orientation": "portrait",
     "lang": "en-US",
@@ -13,5 +13,9 @@
         "src": "logo.png",
         "type": "image/png",
         "sizes": "192x192"
+    },{
+        "src": "logo512.png",
+        "type": "image/png",
+        "sizes": "512x512"
     }]
   }
